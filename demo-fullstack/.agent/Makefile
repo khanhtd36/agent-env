@@ -1,0 +1,47 @@
+agent-build:
+	bash .agent/launch.sh build
+
+agent-doctor:
+	bash .agent/doctor.sh
+
+agent-start:
+	bash .agent/launch.sh start "$(PORTS)"
+
+agent-up:
+	bash .agent/launch.sh up "$(PORTS)"
+
+agent-shell:
+	bash .agent/launch.sh shell "$(CMD)"
+
+agent-status:
+	bash .agent/launch.sh status
+
+agent-ports:
+	bash .agent/launch.sh ports
+
+agent-logs:
+	bash .agent/launch.sh logs
+
+agent-stop:
+	bash .agent/launch.sh stop
+
+agent-down:
+	bash .agent/launch.sh down
+
+agent-reset:
+	bash .agent/launch.sh reset
+
+agent-app-up:
+	bash .agent/scripts/app-up.sh
+
+agent-app-down:
+	bash .agent/scripts/app-down.sh
+
+agent-app-logs:
+	bash .agent/scripts/app-logs.sh
+
+agent-app-status:
+	bash .agent/scripts/app-status.sh
+
+agent-browser-test:
+	bash .agent/scripts/browser-test.sh

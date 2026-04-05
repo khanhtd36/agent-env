@@ -1,0 +1,35 @@
+{
+  "name": "@khanhtd36/agent-env",
+  "version": "0.1.0",
+  "description": "Bootstrap and manage a repo-local Docker-based AI agent coding environment",
+  "type": "module",
+  "bin": {
+    "agent-env": "bin/agent-env.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@clack/prompts": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "bootstrap:self": "node ./bin/agent-env.js bootstrap --yes --just",
+    "check": "node ./bin/agent-env.js --help"
+  },
+  "keywords": [
+    "agent",
+    "docker",
+    "claude",
+    "codex",
+    "pi",
+    "bootstrap"
+  ],
+  "license": "MIT"
+}

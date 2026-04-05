@@ -1,0 +1,21 @@
+shopt -s expand_aliases 2>/dev/null || true
+
+agent_context() {
+  cat /workspace/.agent/CONTEXT.md
+}
+
+cld() {
+  command claude --dangerously-skip-permissions --append-system-prompt "$(cat /workspace/.agent/CONTEXT.md)" "$@"
+}
+
+p() {
+  command pi --append-system-prompt "$(cat /workspace/.agent/CONTEXT.md)" "$@"
+}
+
+c() {
+  echo "[agent-env] Read /workspace/.agent/CONTEXT.md before making assumptions about Docker, ports, or filesystem access." >&2
+  command codex --yolo "$@"
+}
+
+alias lg='lazygit'
+alias ld='lazydocker'

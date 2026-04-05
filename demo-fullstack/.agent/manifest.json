@@ -1,0 +1,25 @@
+{
+  "package": "@khanhtd36/agent-env",
+  "packageVersion": "0.1.0",
+  "templateVersion": 1,
+  "managedFiles": [
+    ".env",
+    "CONTEXT.md",
+    "README.md",
+    "Dockerfile",
+    "Dockerfile.dind",
+    "doctor.sh",
+    "entrypoint.sh",
+    "Justfile",
+    "launch.sh",
+    "Makefile",
+    "scripts/app-down.sh",
+    "scripts/app-logs.sh",
+    "scripts/app-status.sh",
+    "scripts/app-up.sh",
+    "scripts/browser-test.sh",
+    "shell/bashrc.append",
+    "prompts/pi-agent-context.md"
+  ],
+  "generatedAt": "2026-04-05T10:15:41.519Z"
+}

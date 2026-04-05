@@ -1,0 +1,6 @@
+node_modules/
+bun.lockb
+*.tgz
+.DS_Store
+demo-fullstack/.agent/.env
+demo-fullstack/.agent/config.env
