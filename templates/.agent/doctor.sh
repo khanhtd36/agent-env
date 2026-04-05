@@ -49,6 +49,7 @@ check_cmd docker || status=1
 check_host_file "$HOME/.claude"
 check_host_file "$HOME/.pi"
 check_host_file "$HOME/.codex"
+check_host_file "$HOME/.local/share/opencode"
 check_host_file "$REPO_ROOT/.agent/Dockerfile"
 check_host_file "$REPO_ROOT/.agent/Dockerfile.dind"
 check_host_file "$REPO_ROOT/.agent/launch.sh"
@@ -66,6 +67,7 @@ if docker ps --format '{{.Names}}' | grep -Fxq "$WORKSPACE_NAME"; then
   check_container_cmd "$WORKSPACE_NAME" claude || status=1
   check_container_cmd "$WORKSPACE_NAME" codex || status=1
   check_container_cmd "$WORKSPACE_NAME" pi || status=1
+  check_container_cmd "$WORKSPACE_NAME" opencode || status=1
   check_container_cmd "$WORKSPACE_NAME" agent-browser || status=1
   if docker exec "$WORKSPACE_NAME" sh -lc 'agent-browser --help >/dev/null 2>&1'; then
     echo "ok   workspace agent-browser usable"

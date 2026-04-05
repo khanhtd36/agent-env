@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Sync templates/.agent/ → .agent/ and demo-fullstack/.agent/
+ * Sync templates/.agent/ → demo-fullstack/.agent/
  *
  * Source of truth: templates/.agent/
  * Run after editing any file under templates/.agent/
@@ -15,7 +15,6 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'templates', '.agent');
 const TARGETS = [
-  { dest: path.join(ROOT, '.agent'), preserveEnv: false },
   { dest: path.join(ROOT, 'demo-fullstack', '.agent'), preserveEnv: true },
 ];
 

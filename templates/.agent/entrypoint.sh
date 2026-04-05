@@ -42,8 +42,9 @@ ensure_bash_env() {
 copy_secret_dir "$SECRETS_ROOT/claude" "$HOME_DIR/.claude"
 copy_secret_dir "$SECRETS_ROOT/pi" "$HOME_DIR/.pi"
 copy_secret_dir "$SECRETS_ROOT/codex" "$HOME_DIR/.codex"
+copy_secret_dir "$SECRETS_ROOT/opencode" "$HOME_DIR/.local/share/opencode"
 
-mkdir -p "$HOME_DIR/.config" "$HOME_DIR/.cache" "$HOME_DIR/.local/share" "$PI_PROMPT_DIR"
+mkdir -p "$HOME_DIR/.config/opencode" "$HOME_DIR/.cache" "$HOME_DIR/.local/share/opencode" "$PI_PROMPT_DIR"
 if [[ -f /opt/agent/prompts/pi-agent-context.md ]]; then
   cp /opt/agent/prompts/pi-agent-context.md "$PI_PROMPT_DIR/agent-context.md"
   chmod 0644 "$PI_PROMPT_DIR/agent-context.md" || true

@@ -32,7 +32,7 @@ RUN ARCH="${TARGETARCH:-amd64}" && \
     curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - && \
     apt-get update && apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/* && \
-    npm install -g pnpm @anthropic-ai/claude-code@latest @openai/codex@latest @mariozechner/pi-coding-agent@latest agent-browser@latest && \
+    npm install -g pnpm @anthropic-ai/claude-code@latest @openai/codex@latest @mariozechner/pi-coding-agent@latest opencode-ai@latest agent-browser@latest && \
     curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz -o /tmp/go.tgz && \
     rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go.tgz && rm /tmp/go.tgz && \
     ln -sf /usr/local/go/bin/go /usr/local/bin/go && ln -sf /usr/local/go/bin/gofmt /usr/local/bin/gofmt && \
@@ -62,7 +62,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} && \
     echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME}
 
-RUN mkdir -p /workspace /run/host-secrets/claude /run/host-secrets/pi /run/host-secrets/codex /opt/agent/prompts && \
+RUN mkdir -p /workspace /run/host-secrets/claude /run/host-secrets/pi /run/host-secrets/codex /run/host-secrets/opencode /opt/agent/prompts && \
     chown -R ${USERNAME}:${USERNAME} /workspace /run/host-secrets /home/${USERNAME}
 
 COPY entrypoint.sh /usr/local/bin/agent-entrypoint.sh

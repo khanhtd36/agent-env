@@ -17,5 +17,12 @@ c() {
   command codex --yolo "$@"
 }
 
+oc() {
+  local ctx
+  ctx="$(cat /workspace/.agent/CONTEXT.md 2>/dev/null || true)"
+  OPENCODE_CONFIG_CONTENT="$(printf '{"instructions":%s}' "$(printf '%s' "$ctx" | jq -Rs .)")" \
+    command opencode "$@"
+}
+
 alias lg='lazygit'
 alias ld='lazydocker'

@@ -149,15 +149,16 @@ The harness wrapper commands (`cld`, `p`) inject this file into the agent's syst
 ### DR-6: `templates/.agent/` as single source of truth for generated files
 
 **Problem**
-The package needs to generate `.agent/` in user repos. The repo itself also uses `.agent/` for its own development sandbox. The demo repo has its own copy. Without discipline, these three trees drift.
+The package needs to generate `.agent/` in user repos, and the demo repo keeps a checked-in copy for convenience. Without a single canonical source, those trees drift.
 
 **Approach chosen**
-`templates/.agent/` is the canonical source. `scripts/sync.js` copies it to `.agent/` and `demo-fullstack/.agent/` (preserving `.env`). Bootstrap and upgrade copy from `templates/.agent/` at runtime.
+`templates/.agent/` is the canonical source. Bootstrap and upgrade copy from `templates/.agent/` at runtime. `scripts/sync.js` copies it to `demo-fullstack/.agent/` (preserving `.env`). This package repo does not keep its own checked-in root `.agent/`.
 
 **Why**
 - One place to edit when changing agent scripts, Dockerfile, or configuration
 - Sync is explicit and scriptable (`npm run sync`)
-- Published package bundle only contains `templates/.agent/`, never the working copies
+- `.agent/` keeps its normal meaning as generated repo-local state in consumer repos
+- Published package bundle only contains `templates/.agent/`, never generated working copies
 - `manifest.json` in the template has placeholder values (`packageVersion: 0.0.0`, no `generatedAt`) — real values are written at bootstrap/upgrade time
 
 ---
@@ -203,7 +204,9 @@ The template source used by bootstrap lives in:
 
 Bootstrap design details live in:
 
-- `.agent/BOOTSTRAP.md`
+- `templates/.agent/BOOTSTRAP.md`
+
+This package repo intentionally does not keep a checked-in root `.agent/`. In consumer repos, `.agent/` is generated output.
 
 Demo repo:
 

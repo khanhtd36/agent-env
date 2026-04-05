@@ -23,6 +23,7 @@ Working copies of credentials live in:
 - `/home/agent/.claude`
 - `/home/agent/.pi`
 - `/home/agent/.codex`
+- `/home/agent/.local/share/opencode` (opencode auth — use `oc` alias to launch with context injected)
 
 ## Docker topology
 

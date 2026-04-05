@@ -135,6 +135,7 @@ start_workspace() {
       -v "$HOME/.claude:/run/host-secrets/claude:ro" \
       -v "$HOME/.pi:/run/host-secrets/pi:ro" \
       -v "$HOME/.codex:/run/host-secrets/codex:ro" \
+      -v "$HOME/.local/share/opencode:/run/host-secrets/opencode:ro" \
       -w /workspace \
       "$IMAGE_NAME" \
       tail -f /dev/null >/dev/null
