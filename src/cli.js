@@ -10,7 +10,7 @@ Usage:
 
 Bootstrap options:
   --project-name <name>   Persist explicit AGENT_PROJECT_NAME
-  --ports <csv>           Comma-separated host:container mappings
+  --ports <csv>           Comma-separated host:container mappings, supports ranges
   --just                  Ensure root Justfile imports .agent/Justfile
   --make                  Ensure root Makefile includes .agent/Makefile
   --gitignore             Add .agent/ to .gitignore

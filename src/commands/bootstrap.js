@@ -50,7 +50,9 @@ async function readPackageVersion() {
 function defaultBrowserUrl(projectName, portsCsv) {
   const first = String(portsCsv || '').split(',').map((s) => s.trim()).filter(Boolean)[0];
   if (!first) return '';
-  const hostPort = first.split(':')[0];
+  const hostPortSpec = first.split(':')[0];
+  if (!hostPortSpec) return '';
+  const hostPort = hostPortSpec.split('-')[0];
   if (!hostPort) return '';
   return `http://agent-${slugify(projectName)}-dind:${hostPort}`;
 }
@@ -90,6 +92,35 @@ async function ensureRootIntegration(targetDir, mode) {
   }
 }
 
+function validatePortSpec(item, side, value) {
+  const parts = String(value).split('-');
+  if (parts.length === 1) {
+    const port = Number(parts[0]);
+    if (!Number.isInteger(port) || port < 1 || port > 65535) {
+      return `"${item}" has invalid ${side} port: ${value}`;
+    }
+    return null;
+  }
+
+  if (parts.length === 2) {
+    const [startRaw, endRaw] = parts;
+    const start = Number(startRaw);
+    const end = Number(endRaw);
+    if (!Number.isInteger(start) || start < 1 || start > 65535) {
+      return `"${item}" has invalid ${side} port range start: ${startRaw}`;
+    }
+    if (!Number.isInteger(end) || end < 1 || end > 65535) {
+      return `"${item}" has invalid ${side} port range end: ${endRaw}`;
+    }
+    if (start > end) {
+      return `"${item}" has invalid ${side} port range: ${value}`;
+    }
+    return null;
+  }
+
+  return `"${item}" has invalid ${side} port spec: ${value}`;
+}
+
 function validatePorts(portsCsv) {
   if (!portsCsv) return [];
   const errors = [];
@@ -97,12 +128,10 @@ function validatePorts(portsCsv) {
     const parts = item.split(':');
     if (parts.length !== 2) { errors.push(`"${item}" is not host:container format`); continue; }
     const [host, container] = parts;
-    const hostNum = Number(host);
-    const containerNum = Number(container);
-    if (!Number.isInteger(hostNum) || hostNum < 1 || hostNum > 65535)
-      errors.push(`"${item}" has invalid host port: ${host}`);
-    if (!Number.isInteger(containerNum) || containerNum < 1 || containerNum > 65535)
-      errors.push(`"${item}" has invalid container port: ${container}`);
+    const hostError = validatePortSpec(item, 'host', host);
+    const containerError = validatePortSpec(item, 'container', container);
+    if (hostError) errors.push(hostError);
+    if (containerError) errors.push(containerError);
   }
   return errors;
 }
@@ -129,7 +158,7 @@ async function askQuestionsInteractive({ defaults, agentExists }) {
 
   const ports = unwrap(await text({
     message: 'Published ports (comma-separated host:container, blank for none)',
-    placeholder: defaults.ports || 'e.g. 15173:15173,18080:18080',
+    placeholder: defaults.ports || 'e.g. 15173:15173,18080:18080,3000-20000:3000-20000',
     defaultValue: defaults.ports,
     validate: (v) => {
       const errors = validatePorts((v || defaults.ports || '').trim());

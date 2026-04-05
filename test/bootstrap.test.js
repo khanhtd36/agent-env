@@ -110,11 +110,27 @@ test('bootstrap: --gitignore adds .agent/ to .gitignore', async () => {
   }
 });
 
+test('bootstrap: accepts port ranges', async () => {
+  const dir = await tempRepo();
+  try {
+    run('bootstrap --non-interactive --just --project-name t1 --ports 3000-20000:3000-20000', dir);
+    const env = await readFile(path.join(dir, '.agent', '.env'), 'utf8');
+    assert.ok(env.includes('AGENT_PROJECT_PORTS=3000-20000:3000-20000'));
+    assert.ok(env.includes('AGENT_BROWSER_TEST_URL=http://agent-t1-dind:3000'));
+  } finally {
+    await rm(dir, { recursive: true });
+  }
+});
+
 test('bootstrap: fails with invalid ports', async () => {
   const dir = await tempRepo();
   try {
     assert.throws(
       () => run('bootstrap --non-interactive --just --project-name t1 --ports bad:port', dir),
+      /invalid|Invalid/,
+    );
+    assert.throws(
+      () => run('bootstrap --non-interactive --just --project-name t1 --ports 20000-3000:20000-3000', dir),
       /invalid|Invalid/,
     );
   } finally {

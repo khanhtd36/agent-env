@@ -20,6 +20,7 @@ npx @khanhtd36/agent-env upgrade
 
 ```sh
 agent-env bootstrap --project-name my-repo --ports 15173:15173,18080:18080 --just
+agent-env bootstrap --project-name my-repo --ports 3000-20000:3000-20000 --just
 agent-env bootstrap --just --make --gitignore --non-interactive --overwrite
 agent-env upgrade --non-interactive --overwrite
 ```
