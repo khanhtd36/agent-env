@@ -1,6 +1,6 @@
 {
   "name": "@khanhtd36/agent-env",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bootstrap and manage a repo-local Docker-based AI agent coding environment",
   "type": "module",
   "bin": {
