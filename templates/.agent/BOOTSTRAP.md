@@ -24,12 +24,17 @@ bunx @khanhtd36/agent-env bootstrap
 
 Initialize or update `.agent/` in the current repo/directory.
 
-### Future
+### Upgrade
 
 ```sh
 bunx @khanhtd36/agent-env upgrade
-bunx @khanhtd36/agent-env doctor
 ```
+
+Initial intended behavior:
+- require existing `.agent/manifest.json`
+- replace managed files from template
+- preserve `.agent/.env`
+- ensure root `Justfile` / `Makefile` imports/includes remain present
 
 ## Interactive bootstrap flow
 
@@ -115,16 +120,16 @@ Planned flags:
 --ports <csv>
 --just
 --make
---both
 --gitignore
---yes
+--non-interactive
+--overwrite
 ```
 
 Examples:
 
 ```sh
 bunx @khanhtd36/agent-env bootstrap --project-name acme-api --ports 15173:15173,18080:18080 --just
-bunx @khanhtd36/agent-env bootstrap --both --gitignore --yes
+bunx @khanhtd36/agent-env bootstrap --just --make --gitignore --non-interactive --overwrite
 ```
 
 ## Files bootstrap generates inside `.agent/`
@@ -222,7 +227,7 @@ This will be used by future `upgrade`.
 
 ## Upgrade expectations
 
-Future `upgrade` should:
+`upgrade` should:
 - read `.agent/manifest.json`
 - replace managed files safely
 - preserve `.agent/.env` values unless migrating schema

@@ -20,7 +20,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "bootstrap:self": "node ./bin/agent-env.js bootstrap --yes --just",
+    "bootstrap:self": "node ./bin/agent-env.js bootstrap --non-interactive --just",
     "check": "node ./bin/agent-env.js --help"
   },
   "keywords": [
