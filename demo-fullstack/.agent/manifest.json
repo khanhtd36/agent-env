@@ -1,6 +1,6 @@
 {
   "package": "@khanhtd36/agent-env",
-  "packageVersion": "0.1.0",
+  "packageVersion": "0.0.0",
   "templateVersion": 1,
   "managedFiles": [
     ".env",
@@ -20,6 +20,5 @@
     "scripts/browser-test.sh",
     "shell/bashrc.append",
     "prompts/pi-agent-context.md"
-  ],
-  "generatedAt": "2026-04-05T10:15:41.519Z"
+  ]
 }

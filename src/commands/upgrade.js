@@ -81,6 +81,8 @@ export async function upgrade(args) {
   manifest.generatedAt = new Date().toISOString();
   await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
 
+  // Ensure existing root files still have the import/include lines.
+  // Does NOT create new root files — only updates files that already exist.
   await ensureRootImports(targetDir);
 
   if (!args.nonInteractive) {
